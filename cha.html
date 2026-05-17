@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Emergency Contact Information</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .container {
+            background: white;
+            padding: 20px;
+            width: 350px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0,0,0,0.2);
+        }
+
+        h2 {
+            text-align: center;
+        }
+
+        input {
+            width: 100%;
+            padding: 8px;
+            margin: 8px 0;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+
+        button {
+            width: 100%;
+            padding: 10px;
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #c0392b;
+        }
+
+        .output {
+            margin-top: 15px;
+            background: #f9f9f9;
+            padding: 10px;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <h2>Emergency Contact Form</h2>
+
+    <input type="text" id="name" placeholder="Contact Name">
+    <input type="text" id="relation" placeholder="Relation">
+    <input type="tel" id="phone" placeholder="Phone Number">
+    <input type="text" id="address" placeholder="Address">
+
+    <button onclick="saveContact()">Save Contact</button>
+
+    <div class="output" id="display"></div>
+</div>
+
+<script>
+    function saveContact() {
+        let name = document.getElementById("name").value;
+        let relation = document.getElementById("relation").value;
+        let phone = document.getElementById("phone").value;
+        let address = document.getElementById("address").value;
+
+        if(name === "" || relation === "" || phone === "" || address === "") {
+            alert("Please fill all fields!");
+            return;
+        }
+
+        let contactInfo = `
+            <h3>Saved Emergency Contact:</h3>
+            <p><strong>Name:</strong> ${name}</p>
+            <p><strong>Relation:</strong> ${relation}</p>
+            <p><strong>Phone:</strong> ${phone}</p>
+            <p><strong>Address:</strong> ${address}</p>
+        `;
+
+        document.getElementById("display").innerHTML = contactInfo;
+
+        // Optional: Save to local storage
+        localStorage.setItem("emergencyContact", contactInfo);
+    }
+
+    // Load saved contact on page load
+    window.onload = function() {
+        let saved = localStorage.getItem("emergencyContact");
+        if(saved) {
+            document.getElementById("display").innerHTML = saved;
+        }
+    }
+</script>
+
+</body>
+</html>
